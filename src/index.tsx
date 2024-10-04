@@ -1,7 +1,6 @@
-
-import "medhya/css/medhya.css";
+import "vedhya/css/vedhya.css";
 import { createRoot } from "react-dom/client";
-import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 const container = document.querySelector(".root")!;
 const root = createRoot(container);
 root.render(
@@ -11,7 +10,7 @@ root.render(
         path="/"
         element={
           <>
-            <h1>Welcome</h1>
+            <h1>Coming Soon</h1>
           </>
         }
       />
