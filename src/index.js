@@ -161,8 +161,6 @@ root.render(
       `
     );
 
-    // Initialize Git repository
-    execSync("git init -b main");
   } catch (error) {
     console.error("Error creating project:", error);
   } finally {
