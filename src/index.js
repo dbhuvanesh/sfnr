@@ -163,7 +163,6 @@ root.render(
 
     // Initialize Git repository
     execSync("git init -b main");
-    execSync("npm install", { stdio: 'inherit' });
   } catch (error) {
     console.error("Error creating project:", error);
   } finally {
