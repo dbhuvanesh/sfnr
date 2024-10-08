@@ -4,15 +4,12 @@ import fs from "node:fs";
 import chalk from "chalk";
 import readline from "node:readline/promises";
 import { stdin as input, stdout as output } from "node:process";
-import { execSync } from "child_process";
 
 const rl = readline.createInterface({ input, output });
-
 const projectName = await rl.question(
   chalk.bold.whiteBright("Your project name: ")
 );
 const authorName = await rl.question(chalk.bold.whiteBright("Your name: "));
-
 async function createProject() {
   try {
     await fs.promises.mkdir(projectName, { recursive: true });
