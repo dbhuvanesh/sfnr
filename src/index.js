@@ -15,10 +15,7 @@ const authorName = await rl.question(chalk.bold.whiteBright("Your name: "));
 
 async function createProject() {
   try {
-    // Create project directory
     await fs.promises.mkdir(projectName, { recursive: true });
-
-    // Change to project directory
     process.chdir(projectName);
 
     // Create necessary directories and files
@@ -28,24 +25,37 @@ async function createProject() {
       `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${projectName}</title></head><body><div class="root"></div></body></html>`
     );
     await fs.promises.mkdir("src", { recursive: true });
+    await fs.promises.mkdir("src/pages", { recursive: true });
     await fs.promises.writeFile(
-      "src/index.tsx",
+      "src/pages/Home.jsx",
       `
+      import React from "react";
+
+      export default function Home() {
+      return (
+      <div>
+      <h1>Home</h1>
+      </div>
+      )
+      }
+      `
+    );
+    await fs.promises.writeFile(
+      "src/index.jsx",
+      `
+      import React from "react"
 import "medhya/css/medhya.css";
+import Home from "./pages/Home.jsx"
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
-const container = document.querySelector(".root")!;
+const container = document.querySelector(".root");
 const root = createRoot(container);
 root.render(
   <Router>
     <Routes>
       <Route
         path="/"
-        element={
-          <>
-            <h1>Welcome</h1>
-          </>
-        }
+        element={<Home/>}
       />
     </Routes>
   </Router>
@@ -56,29 +66,16 @@ root.render(
     await fs.promises.writeFile(".gitignore", "/node_modules");
     await fs.promises.writeFile(
       ".babelrc",
-      `{"presets": ["@babel/preset-env", "@babel/preset-react", "@babel/preset-typescript"]}`
+      `{"presets": ["@babel/preset-env", "@babel/preset-react"]}`
     );
-    await fs.promises.writeFile(
-      "tsconfig.json",
-      `{
-  "compilerOptions": {
-    "target": "es5",
-    "module": "commonjs",
-    "outDir": "./dist",
-    "esModuleInterop": true,
-    "forceConsistentCasingInFileNames": true,
-    "strict": true,
-    "jsx": "react-jsx"
-  }
-}`
-    );
+
     await fs.promises.writeFile(
       "package.json",
       `
         {
           "name": "${projectName}",
           "version": "1.0.0",
-          "main": "./src/index.tsx",
+          "main": "./src/index.jsx",
           "scripts": {
             "build": "webpack",
             "start": "webpack-dev-server"
@@ -91,11 +88,10 @@ root.render(
           "author": "${authorName}",
           "license": "ISC",
           "description": "",
-          "dependencies": {
+          "dependencies": {          
             "medhya": "^1.0.130",
-            "react-router-dom": "^6.19.0",
-            "@types/react": "^18.0.36",
-            "@types/react-dom": "^18.0.12"
+            "react": "^18.3.1",
+            "react-router-dom": "^6.19.0"
           },
           "devDependencies": {
             "@babel/core": "^7.23.3",
@@ -106,8 +102,6 @@ root.render(
             "css-loader": "^6.8.1",
             "html-webpack-plugin": "^5.5.3",
             "style-loader": "^3.3.3",
-            "ts-loader": "^9.4.4",
-            "typescript": "^5.2.2",
             "webpack": "^5.89.0",
             "webpack-cli": "^5.1.4",
             "webpack-dev-server": "^4.15.1"
@@ -120,15 +114,15 @@ root.render(
       "webpack.config.js",
       `
       const webpack = require("webpack");
-const path = require("path");
-const HtmlWebpackPlugin = require("html-webpack-plugin");
-module.exports = {
-  entry: "./src/index.tsx",
-  mode: "development",
-  output: {
-    path: path.resolve(__dirname, "dist"),
-    filename: "bundle.js",
-  },
+      const path = require("path");
+      const HtmlWebpackPlugin = require("html-webpack-plugin");
+      module.exports = {
+      entry: "./src/index.jsx",
+      mode: "development",
+      output: {
+      path: path.resolve(__dirname, "dist"),
+      filename: "bundle.js",
+      },
   devServer: {
     open: true,
     port: 5000,
@@ -137,8 +131,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.(ts|tsx)$/,
-        use: "ts-loader",
+        test: /.(js|jsx)$/,
+        use: "babel-loader",
         exclude: /node_modules/,
       },
       {
@@ -169,6 +163,7 @@ module.exports = {
 
     // Initialize Git repository
     execSync("git init -b main");
+    execSync("npm install", { stdio: 'inherit' });
   } catch (error) {
     console.error("Error creating project:", error);
   } finally {
