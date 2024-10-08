@@ -160,7 +160,6 @@ root.render(
 };
       `
     );
-
   } catch (error) {
     console.error("Error creating project:", error);
   } finally {
