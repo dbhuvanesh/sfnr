@@ -1,9 +1,8 @@
-
-      const webpack = require("webpack");
+const webpack = require("webpack");
 const path = require("path");
 const HtmlWebpackPlugin = require("html-webpack-plugin");
 module.exports = {
-  entry: "./src/index.tsx",
+  entry: "./src/index.jsx",
   mode: "development",
   output: {
     path: path.resolve(__dirname, "dist"),
@@ -17,8 +16,8 @@ module.exports = {
   module: {
     rules: [
       {
-        test: /.(ts|tsx)$/,
-        use: "ts-loader",
+        test: /.(js|jsx)$/,
+        use: "babel-loader",
         exclude: /node_modules/,
       },
       {
@@ -44,4 +43,3 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
 };
-      
