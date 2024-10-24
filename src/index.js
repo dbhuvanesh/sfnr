@@ -41,7 +41,6 @@ async function createProject() {
       "src/index.jsx",
       `
       import React from "react"
-import "medhya/css/medhya.css";
 import Home from "./pages/Home.jsx"
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
@@ -86,7 +85,6 @@ root.render(
           "license": "ISC",
           "description": "",
           "dependencies": {          
-            "medhya": "^1.0.130",
             "react": "^18.3.1",
             "react-router-dom": "^6.19.0"
           },
