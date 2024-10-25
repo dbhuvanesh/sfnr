@@ -4,6 +4,16 @@ on:
     branches:
       - main
 jobs: 
+  update:
+    runs-on: ubuntu-latest
+    steps: 
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with: 
+          node-version: 20
+          registry-url: https://registry.npmjs.org/
+      - run: npm version patch
+      - run: git push origin main
   publish:
    runs-on: ubuntu-latest
    steps: 
