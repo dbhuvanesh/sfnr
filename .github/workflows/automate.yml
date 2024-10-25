@@ -1,73 +1,19 @@
-name: Auto Publish To NPM
-
+name : Auto Publish To NPM
 on:
   push:
     branches:
       - main
-
 jobs: 
-  update:
-    runs-on: ubuntu-latest
-
-    steps: 
-      # Checkout the repository
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Set up Node.js environment
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
-        with: 
-          node-version: 20
-          registry-url: https://registry.npmjs.org/
-
-      # Configure Git with your name and email
-      - name: Configure Git
-        run: |
-          git config --global user.email "realbhuvaneshduvvuri@gmail.com"
-          git config --global user.name "Bhuvanesh Duvvuri"
-
-      # Bump version in package.json (patch, minor, or major)
-      - name: Bump version
-        run: npm version patch
-
-      # Commit changes and push to main branch
-      - name: Commit and Push Changes
-        run: |
-          git remote set-url origin https://x-access-token:${{ secrets.GIT_SFNR }}@github.com/dbhuvanesh/sfnr.git
-          git add . 
-          git commit -m "Bump version to $(node -p "require('./package.json').version")" || echo "No changes to commit"
-          git push origin main || echo "Failed to push changes to main branch. Please check permissions."
-        env:
-          GIT_SFNR: ${{ secrets.GIT_SFNR }}
-
   publish:
-    runs-on: ubuntu-latest
-
-    steps: 
-      # Checkout the repository again for the publish job
-      - name: Checkout code
-        uses: actions/checkout@v4
-
-      # Set up Node.js environment for publishing
-      - name: Set up Node.js
-        uses: actions/setup-node@v4
+   runs-on: ubuntu-latest
+   steps: 
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-
-      # Install dependencies
-      - name: Install Dependencies
-        run: npm ci
-
-      # Add npm user (if required)
-      - name: Add npm User
-        run: npm adduser
+      - run: npm ci
+      - run: npm adduser
+      - run: npm publish
         env: 
-          NODE_AUTH_TOKEN: ${{ secrets.SFNR_TOKEN }}
-
-      # Publish to npm
-      - name: Publish to NPM
-        run: npm publish
-        env: 
-          NODE_AUTH_TOKEN: ${{ secrets.SFNR_TOKEN }}
+          NODE_AUTH_TOKEN: ${{secrets.SFNR_TOKEN}}
