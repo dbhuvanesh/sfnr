@@ -15,10 +15,11 @@ jobs:
       - run: git config --global user.email "realbhuvaneshduvvuri@gmail.com"
       - run: git config --global user.name "Bhuvanesh Duvvuri"
       - run: npm version patch
-      - run: git remote set-url origin https://x-access-token:${{ secrets.GIT_SFNR }}@github.com/dbhuvanesh/sfnr.git
-      - run: git add .
-      - run: git commit -m "updates"
-      - run: git push origin main
+      - run: |
+              git remote set-url origin https://x-access-token:${{ secrets.GIT_SFNR }}@github.com/dbhuvanesh/sfnr.git
+              git add .
+              git commit -m "updates"
+              git push origin main
         env:
           # Use the personal access token stored in GitHub Secrets
           GIT_SFNR: ${{ secrets.GIT_SFNR }}
