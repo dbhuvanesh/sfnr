@@ -8,8 +8,7 @@
   },
   "scripts": {
     "start": "node ./src/index.js",
-    "test": "nodemon ./src/index.js",
-    "update": "git add . && git commit -m 'fixing the readme' && git push && npm version patch "
+    "test": "nodemon ./src/index.js"
   },
   "type": "module",
   "repository": {
