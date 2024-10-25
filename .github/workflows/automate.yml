@@ -12,6 +12,8 @@ jobs:
         with: 
           node-version: 20
           registry-url: https://registry.npmjs.org/
+      - run: git config --global user.email "realbhuvaneshduvvuri@gmail.com"
+      - run: git config --global user.name "Bhuvanesh Duvvuri"
       - run: npm version patch
       - run: git push origin main
   publish:
