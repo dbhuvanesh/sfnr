@@ -24,9 +24,9 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
-      - run: npm login
       - run: git config --global user.email "realbhuvaneshduvvuri@gmail.com"
       - run: git config --global user.name "Bhuvanesh Duvvuri"
+      - run: npm adduser
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.WORKFLOW}}
