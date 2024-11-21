@@ -1,6 +1,6 @@
 {
   "name": "sfnr",
-  "version": "0.0.4",
+  "version": "0.0.5",
   "description": "Strategic, functional, new, react boilerplate generator",
   "main": "./src/index.js",
   "bin": {
