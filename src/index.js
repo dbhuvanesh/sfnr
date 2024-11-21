@@ -24,7 +24,7 @@ async function createProject() {
     await fs.promises.mkdir("src", { recursive: true });
     await fs.promises.mkdir("src/pages", { recursive: true });
     await fs.promises.writeFile(
-      "src/pages/Home.jsx",
+      "src/pages/Home.tsx",
       `
       import React from "react";
 
@@ -38,13 +38,13 @@ async function createProject() {
       `
     );
     await fs.promises.writeFile(
-      "src/index.jsx",
+      "src/index.tsx",
       `
       import React from "react"
-import Home from "./pages/Home.jsx"
+import Home from "./pages/Home.tsx"
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
-const container = document.querySelector(".root");
+const container = document.querySelector(".root")!;
 const root = createRoot(container);
 root.render(
   <Router>
@@ -62,7 +62,14 @@ root.render(
     await fs.promises.writeFile(".gitignore", "/node_modules");
     await fs.promises.writeFile(
       ".babelrc",
-      `{"presets": ["@babel/preset-env", "@babel/preset-react"]}`
+      `{
+  "presets": [
+    "@babel/preset-env",
+    "@babel/preset-react",
+    "@babel/preset-typescript"
+  ]
+}
+`
     );
 
     await fs.promises.writeFile(
@@ -71,7 +78,7 @@ root.render(
         {
           "name": "${projectName}",
           "version": "1.0.0",
-          "main": "./src/index.jsx",
+          "main": "./src/index.tsx",
           "scripts": {
             "build": "webpack",
             "start": "webpack-dev-server",
@@ -157,7 +164,6 @@ module.exports = {
   },
   plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
 };
-
       `
     );
   } catch (error) {
