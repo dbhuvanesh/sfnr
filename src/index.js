@@ -74,7 +74,8 @@ root.render(
           "main": "./src/index.jsx",
           "scripts": {
             "build": "webpack",
-            "start": "webpack-dev-server"
+            "start": "webpack-dev-server",
+            "format": "npx prettier . --write"
           },
           "keywords": [
             "react",
@@ -90,16 +91,19 @@ root.render(
           },
           "devDependencies": {
             "@babel/core": "^7.23.3",
-            "@babel/preset-env": "^7.23.3",
-            "@babel/preset-react": "^7.23.3",
-            "@babel/preset-typescript": "^7.23.3",
-            "babel-loader": "^9.1.3",
-            "css-loader": "^6.8.1",
-            "html-webpack-plugin": "^5.5.3",
-            "style-loader": "^3.3.3",
-            "webpack": "^5.89.0",
-            "webpack-cli": "^5.1.4",
-            "webpack-dev-server": "^4.15.1"
+    "@babel/preset-env": "^7.23.3",
+    "@babel/preset-react": "^7.23.3",
+    "@babel/preset-typescript": "^7.23.3",
+    "@types/react": "^18.3.12",
+    "@types/react-dom": "^18.3.1",
+    "babel-loader": "^9.1.3",
+    "css-loader": "^6.8.1",
+    "html-webpack-plugin": "^5.5.3",
+    "prettier": "^3.3.3",
+    "style-loader": "^3.3.3",
+    "webpack": "^5.89.0",
+    "webpack-cli": "^5.1.4",
+    "webpack-dev-server": "^4.15.1"
           }
         }
         
@@ -109,15 +113,15 @@ root.render(
       "webpack.config.js",
       `
       const webpack = require("webpack");
-      const path = require("path");
-      const HtmlWebpackPlugin = require("html-webpack-plugin");
-      module.exports = {
-      entry: "./src/index.jsx",
-      mode: "development",
-      output: {
-      path: path.resolve(__dirname, "dist"),
-      filename: "bundle.js",
-      },
+const path = require("path");
+const HtmlWebpackPlugin = require("html-webpack-plugin");
+module.exports = {
+  entry: "./src/index.tsx",
+  mode: "development",
+  output: {
+    path: path.resolve(__dirname, "dist"),
+    filename: "bundle.js",
+  },
   devServer: {
     open: true,
     port: 5000,
@@ -126,8 +130,8 @@ root.render(
   module: {
     rules: [
       {
-        test: /.(js|jsx)$/,
-        use: "babel-loader",
+        test: /\.ts(x)?$/,
+        use: ["babel-loader"],
         exclude: /node_modules/,
       },
       {
@@ -153,6 +157,7 @@ root.render(
   },
   plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
 };
+
       `
     );
   } catch (error) {
