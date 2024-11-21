@@ -12,7 +12,7 @@ jobs:
         with:
           node-version: 20
           registry-url: https://registry.npmjs.org/
-      - run: npm config set registry http://registry.npmjs.org
+      - run: npm config set registry https://registry.npmjs.org
       - run: npm cache clean --force
       - run: npm ci
       - run: npm adduser
