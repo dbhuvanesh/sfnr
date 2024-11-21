@@ -14,7 +14,6 @@ async function createProject() {
   try {
     await fs.promises.mkdir(projectName, { recursive: true });
     process.chdir(projectName);
-
     // Create necessary directories and files
     await fs.promises.mkdir("public", { recursive: true });
     await fs.promises.writeFile(
@@ -22,6 +21,30 @@ async function createProject() {
       `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${projectName}</title></head><body><div class="root"></div></body></html>`
     );
     await fs.promises.mkdir("src", { recursive: true });
+    await fs.promises.mkdir("src/stylesheets", { recursive: true });
+    await fs.promises.writeFile(
+      "src/stylesheets/global.css",
+      `
+      @import url("https://fonts.googleapis.com/css2?family=Josefin+Sans:ital,wght@0,100..700;1,100..700&display=swap");
+
+* {
+  margin: 0;
+  padding: 0;
+}
+
+html,
+body {
+  font-style: normal;
+  font-optical-sizing: auto;
+  font-family: "Josefin Sans", sans-serif;
+}
+
+h1,h2,h3,h4,h5,h6 {
+  font-weight: 700;
+}
+
+      `
+    );
     await fs.promises.mkdir("src/pages", { recursive: true });
     await fs.promises.writeFile(
       "src/pages/Home.tsx",
