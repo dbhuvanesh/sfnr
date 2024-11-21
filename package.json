@@ -4,7 +4,7 @@
   "description": "Strategic, functional, new, react boilerplate generator",
   "main": "./src/index.js",
   "bin": {
-    "sfnr": "./src/index.js"
+    "sfnr": "src/index.js"
   },
   "scripts": {
     "start": "node ./src/index.js",
