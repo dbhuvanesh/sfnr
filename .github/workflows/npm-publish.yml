@@ -28,6 +28,7 @@ jobs:
           node-version: 20
           registry-url: https://registry.npmjs.org/
       - run: npm ci
+      - run: npm adduser
       - run: npm publish
         env:
           NODE_AUTH_TOKEN: ${{secrets.SFNR_TOKEN}}
