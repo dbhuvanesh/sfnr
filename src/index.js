@@ -116,8 +116,9 @@ root.render(
           "license": "ISC",
           "description": "",
           "dependencies": {          
-            "react": "^18.3.1",
-            "react-router-dom": "^6.19.0"
+            "react": "^19.0.0",
+            "react-dom": "^19.0.0",
+    "react-router-dom": "^7.0.2"
           },
           "devDependencies": {
             "@babel/core": "^7.23.3",
