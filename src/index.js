@@ -65,6 +65,7 @@ h1,h2,h3,h4,h5,h6 {
       `
       import React from "react"
 import Home from "./pages/Home.tsx"
+import "../src/stylesheets/global.css"
 import { createRoot } from "react-dom/client";
 import { BrowserRouter as Router,Routes, Route } from "react-router-dom";
 const container = document.querySelector(".root")!;
