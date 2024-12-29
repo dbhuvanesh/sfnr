@@ -185,6 +185,10 @@ module.exports = {
         ],
         include: /.module.css$/,
       },
+            {
+        test: /\.(png|svg|jpg|jpeg|gif)$/i,
+        type: 'asset/resource',
+      },
     ],
   },
   plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
