@@ -7,11 +7,15 @@
   "exports": {
     ".": {
       "types": "./dist/index.d.ts",
-      "import": "./dist/index.js"
+      "import": "./dist/index.js",
+      "require": "./dist/index.js",
+      "default": "./dist/index.js"
     },
     "./generator": {
       "types": "./dist/generator.d.ts",
-      "import": "./dist/generator.js"
+      "import": "./dist/generator.js",
+      "require": "./dist/generator.js",
+      "default": "./dist/generator.js"
     }
   },
   "bin": {
