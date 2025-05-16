@@ -3,6 +3,10 @@
   "version": "0.0.3",
   "description": "Strategic, functional, new, react boilerplate generator",
   "main": "./src/index.js",
+  "exports": {
+    ".": "./src/index.js",
+    "./generator": "./src/generator.js"
+  },
   "bin": {
     "sfnr": "./src/index.js"
   },
