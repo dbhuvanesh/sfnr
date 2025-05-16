@@ -1,6 +1,6 @@
 {
   "name": "sfnr",
-  "version": "0.0.11",
+  "version": "0.0.12",
   "description": "Strategic, functional, new, react boilerplate generator",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
