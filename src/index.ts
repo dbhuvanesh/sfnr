@@ -67,7 +67,10 @@ const runCLI = async (): Promise<void> => {
   }
 };
 
-// Always run CLI when the package is executed via npx or as a bin
-runCLI();
+// Only run CLI when the module is executed directly (not when imported)
+// This fixes the issue of prompts showing when used as an API
+if (import.meta.url === `file://${process.argv[1]}`) {
+  runCLI();
+}
 
 export { generateReactProject };
