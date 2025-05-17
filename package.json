@@ -1,6 +1,6 @@
 {
   "name": "sfnr",
-  "version": "0.0.13",
+  "version": "0.0.14",
   "description": "Strategic, functional, new, react boilerplate generator",
   "main": "./dist/index.js",
   "types": "./dist/index.d.ts",
@@ -23,6 +23,7 @@
   },
   "scripts": {
     "build": "tsc",
+    "postbuild": "chmod +x ./dist/index.js",
     "start": "node ./dist/index.js",
     "dev": "ts-node ./src/index.ts",
     "test": "nodemon --exec ts-node ./src/index.ts",
