@@ -6,15 +6,12 @@
  npx sfnr
 ```
 
-A single command creates your react web application.
+A single command creates your react web application, initializes git with a main branch, and installs all dependencies.
 
-Navigate to your directory and install your npm dependencies
-
-```
- npm i
-```
+Navigate to your directory and start your application:
 
 ```
+ cd your-project-name
  npm run start
 ```
 
@@ -29,7 +26,9 @@ async function createProject() {
   const result = await generateReactProject({
     projectName: 'my-react-app',
     authorName: 'John Doe',
-    targetDirectory: '/path/to/projects' // optional
+    targetDirectory: '/path/to/projects', // optional
+    initGit: true, // optional (default: true)
+    installDependencies: true // optional (default: true)
   });
 
   if (result.success) {
@@ -74,7 +73,9 @@ async function createProject() {
   const result = await generateReactProject({
     projectName: 'my-react-app',
     authorName: 'John Doe',
-    targetDirectory: '/path/to/projects' // optional
+    targetDirectory: '/path/to/projects', // optional
+    initGit: true, // optional (default: true)
+    installDependencies: true // optional (default: true)
   });
 
   if (result.success) {
@@ -94,6 +95,8 @@ async function createProject() {
 - CSS and CSS Modules support
 - ESLint and Prettier configuration
 - Jest testing setup
+- Automatic Git initialization
+- Automatic dependency installation
 
 ## Development
 

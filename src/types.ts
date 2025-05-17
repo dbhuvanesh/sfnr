@@ -2,6 +2,8 @@ export interface GeneratorOptions {
   projectName: string;
   authorName: string;
   targetDirectory?: string;
+  installDependencies?: boolean;
+  initGit?: boolean;
 }
 
 export interface GeneratorResult {

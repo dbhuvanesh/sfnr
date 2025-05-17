@@ -1,6 +1,7 @@
 import fs from "node:fs";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
+import { execSync } from "node:child_process";
 import { GeneratorOptions, GeneratorResult, ProjectFiles } from "./types.js";
 
 // Get the directory path of the current module
@@ -9,20 +10,52 @@ const __dirname = path.dirname(fileURLToPath(import.meta.url));
 export const generateReactProject = async ({
   projectName,
   authorName,
-  targetDirectory = process.cwd()
+  targetDirectory = process.cwd(),
+  installDependencies = true,
+  initGit = true
 }: GeneratorOptions): Promise<GeneratorResult> => {
   try {
     const projectPath = path.join(targetDirectory, projectName);
     await fs.promises.mkdir(projectPath, { recursive: true });
+    
+    // Store original directory to return to later
+    const originalDir = process.cwd();
+    
+    // Change into project directory
     process.chdir(projectPath);
 
     await createDirectories();
     await createFiles({ projectName, authorName });
 
+    // Initialize Git repository
+    if (initGit) {
+      try {
+        console.log("Initializing Git repository...");
+        execSync("git init -b main", { stdio: "ignore" });
+        console.log("Git repository initialized with main branch.");
+      } catch (error) {
+        console.warn("Failed to initialize Git repository:", error);
+      }
+    }
+
+    // Install dependencies
+    if (installDependencies) {
+      try {
+        console.log("Installing dependencies...");
+        execSync("npm install", { stdio: "inherit" });
+        console.log("Dependencies installed successfully.");
+      } catch (error) {
+        console.warn("Failed to install dependencies:", error);
+      }
+    }
+
+    // Return to original directory
+    process.chdir(originalDir);
+
     return {
       success: true,
       projectPath,
-      message: `React project '${projectName}' created successfully`
+      message: `React project '${projectName}' created successfully${initGit ? " with Git initialization" : ""}${installDependencies ? " and dependencies installed" : ""}`
     };
   } catch (error) {
     return {
