@@ -1,5 +1,11 @@
 import fs from "node:fs";
 import path from "node:path";
+<<<<<<< HEAD
+=======
+import { fileURLToPath } from "node:url";
+// Get the directory path of the current module
+const __dirname = path.dirname(fileURLToPath(import.meta.url));
+>>>>>>> dev
 export const generateReactProject = async ({ projectName, authorName, targetDirectory = process.cwd() }) => {
     try {
         const projectPath = path.join(targetDirectory, projectName);
@@ -25,6 +31,7 @@ const createDirectories = async () => {
     await fs.promises.mkdir("src", { recursive: true });
     await fs.promises.mkdir("src/pages", { recursive: true });
 };
+<<<<<<< HEAD
 const createFiles = async ({ projectName, authorName }) => {
     const files = {
         'public/index.html': `<!DOCTYPE html><html lang="en"><head><meta charset="UTF-8"><meta name="viewport" content="width=device-width, initial-scale=1.0"><title>${projectName}</title></head><body><div class="root"></div></body></html>`,
@@ -159,6 +166,57 @@ const createFiles = async ({ projectName, authorName }) => {
         plugins: [new HtmlWebpackPlugin({ template: "./public/index.html" })],
       };`
     };
+=======
+const loadTemplateFile = async (templatePath) => {
+    try {
+        // Templates are stored relative to the 'templates' directory
+        const fullPath = path.join(__dirname, '../templates', templatePath);
+        return await fs.promises.readFile(fullPath, 'utf-8');
+    }
+    catch (error) {
+        console.error(`Error loading template ${templatePath}:`, error);
+        throw error;
+    }
+};
+const processTemplate = (content, variables) => {
+    let processedContent = content;
+    // Replace all variables in the format {{variableName}}
+    for (const [key, value] of Object.entries(variables)) {
+        const regex = new RegExp(`\\{\\{${key}\\}\\}`, 'g');
+        processedContent = processedContent.replace(regex, value);
+    }
+    return processedContent;
+};
+const createFiles = async ({ projectName, authorName }) => {
+    // Define which templates to use for which files
+    const templateMappings = {
+        'public/index.html': 'public/index.html',
+        'src/pages/Home.tsx': 'src/pages/Home.tsx',
+        'src/index.tsx': 'src/index.tsx',
+        '.gitignore': 'gitignore',
+        '.babelrc': 'babelrc',
+        'package.json': 'package.json',
+        'tsconfig.json': 'tsconfig.json',
+        'webpack.config.js': 'webpack.config.js'
+    };
+    const variables = {
+        projectName,
+        authorName
+    };
+    const files = {};
+    // Load each template and process it with variables
+    for (const [filePath, templatePath] of Object.entries(templateMappings)) {
+        try {
+            const templateContent = await loadTemplateFile(templatePath);
+            files[filePath] = processTemplate(templateContent, variables);
+        }
+        catch (error) {
+            console.error(`Failed to load template for ${filePath}:`, error);
+            throw error;
+        }
+    }
+    // Write processed files to disk
+>>>>>>> dev
     for (const [filePath, content] of Object.entries(files)) {
         await fs.promises.writeFile(filePath, content);
     }
