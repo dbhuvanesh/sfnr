@@ -24,9 +24,7 @@ const runCLI = async (): Promise<void> => {
   }
 };
 
-// Run CLI if executed directly
-if (process.argv[1] === import.meta.url) {
-  runCLI();
-}
+// Always run CLI when the package is executed via npx or as a bin
+runCLI();
 
 export { generateReactProject };
