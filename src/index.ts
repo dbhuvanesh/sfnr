@@ -3,6 +3,8 @@
 import chalk from "chalk";
 import { generateReactProject } from './generator.js';
 import prompts from "prompts";
+import { fileURLToPath } from "node:url";
+import path from "node:path";
 
 const runCLI = async (): Promise<void> => {
   try {
@@ -63,13 +65,21 @@ const runCLI = async (): Promise<void> => {
       console.error(chalk.red(`Error: ${result.error}`));
     }
   } catch (error) {
-    console.error(chalk.red(`An unexpected error occurred: ${error}`));
+    console.error(chalk.red(`An unexpected error occurred: ${error instanceof Error ? error.message : String(error)}`));
   }
 };
 
-// Only run CLI when the module is executed directly (not when imported)
-// This fixes the issue of prompts showing when used as an API
-if (import.meta.url === `file://${process.argv[1]}`) {
+// Multiple ways to detect if we're being run as a CLI:
+// 1. Check for the environment variable set in our wrapper
+// 2. Check if the filename matches the CLI name
+// 3. Check if this file is the main module
+const isCLI = process.env.SFNR_CLI_MODE === 'true' || 
+             (process.argv[1] && process.argv[1].endsWith('sfnr')) ||
+             process.argv[1] === fileURLToPath(import.meta.url);
+
+// Only run CLI when used as a command, not when imported as a module
+if (isCLI) {
+  console.log("Starting SFNR CLI...");
   runCLI();
 }
 

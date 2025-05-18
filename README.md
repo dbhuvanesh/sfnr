@@ -15,9 +15,22 @@ Navigate to your directory and start your application:
  npm run start
 ```
 
+## CLI Usage
+
+Run the command and follow the interactive prompts:
+```
+ npx sfnr
+```
+
+You'll be asked for:
+- Project name
+- Author name
+- Whether to initialize a Git repository
+- Whether to install dependencies
+
 ## API Usage
 
-You can also use sfnr programmatically in your Node.js applications:
+You can also use sfnr programmatically in your Node.js applications. The API mode does not show any interactive prompts:
 
 ```javascript
 import { generateReactProject } from 'sfnr';

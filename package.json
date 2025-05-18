@@ -19,11 +19,11 @@
     }
   },
   "bin": {
-    "sfnr": "./dist/index.js"
+    "sfnr": "./bin/sfnr.js"
   },
   "scripts": {
     "build": "tsc",
-    "postbuild": "chmod +x ./dist/index.js && cp -r templates dist/",
+    "postbuild": "chmod +x ./dist/index.js && chmod +x ./bin/sfnr.js && cp -r templates dist/",
     "start": "node ./dist/index.js",
     "dev": "ts-node ./src/index.ts",
     "test": "nodemon --exec ts-node ./src/index.ts",
@@ -38,7 +38,8 @@
   ],
   "files": [
     "dist",
-    "templates"
+    "templates",
+    "bin"
   ],
   "type": "module",
   "repository": {
