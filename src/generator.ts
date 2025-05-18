@@ -11,8 +11,8 @@ export const generateReactProject = async ({
   projectName,
   authorName,
   targetDirectory = process.cwd(),
-  installDependencies = true,
-  initGit = true
+  installDependencies = true,  // Default to true as documented in README
+  initGit = true               // Default to true as documented in README
 }: GeneratorOptions): Promise<GeneratorResult> => {
   try {
     const projectPath = path.join(targetDirectory, projectName);
