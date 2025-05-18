@@ -4,7 +4,6 @@ import chalk from "chalk";
 import { generateReactProject } from './generator.js';
 import prompts from "prompts";
 import { fileURLToPath } from "node:url";
-import path from "node:path";
 
 const runCLI = async (): Promise<void> => {
   try {
